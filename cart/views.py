@@ -98,11 +98,10 @@ class OrderFormView(View):
 
                     #Razorpay Payment Gateway Integration
                     #1.creates client connection
-                    client = razorpay.Client(auth=("rzp_test_sJgGk1sHeX3AWm", "ylWAgRlJ3cxLO4BG25C7YEAX"))
-
+                    # client = razorpay.Client(auth=("rzp_test_sJgGk1sHeX3AWm", "ylWAgRlJ3cxLO4BG25C7YEAX"))
+                    clinent = razorpay.Client(auth=("rzp_test_6q2Y2f2fYK3y1o", "k9k7lX1qj2f9W2o0J2o1Y4Y2"))
                     #2.order creation
-                    response_payment=client.order.create(dict(amount=total*100,currency='INR'))
-
+                    response_payment=clinent.order.create(dict(amount=total*100,currency='INR'))
                     #prints the response_payment
                     print(response_payment)
 
