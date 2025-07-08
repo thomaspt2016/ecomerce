@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>order summar</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Signup</li> {# This might be "Order Summary" or "Checkout" based on your page content #}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% for order in orders %} {# Changed 'i' to 'order' for better readability #}
+{% for item in order.items.all %}
+<div class="card" style="width: 18rem;">
+  <img src="{{ item.product.image.url }}" class="card-img-top" alt="{{ item.product.name }}"> {# Changed j to item, and accessing product details #}
+  <div class="card-body">
+    <h5 class="card-title">{{ item.product.name }}</h5>
+    <p class="card-text">Quantity: {{ item.quantity }}</p>
+    <p class="card-text">Price per item: {{ item.product.price }}</p> {# Assuming Product has a price field #}
+    <p class="card-text">Subtotal: {{ order.amount }}</p> {# Add a method to your OrderItem model to calculate subtotal #}
+    <a href="#" class="btn btn-primary">View Product</a> {# Changed "Go somewhere" to be more specific #}
+  </div>
+</div>
+{% empty %}
+    <p>No items in this order.</p>
+{% endfor %}
+<hr> {# Add a separator between orders #}
+{% empty %}
+    <p>You have no orders.</p>
+{% endfor %}
+{% endblock %}

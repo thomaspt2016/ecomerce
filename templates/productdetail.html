@@ -1,0 +1,79 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Shop Detail</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Shop Detail </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Shop Detail  -->
+    <div class="shop-detail-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-6">
+                    <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active"> <img class="d-block w-100" height="450px" src="{{product.image.url}}" alt="First slide"> </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-6">
+                    <div class="single-product-details">
+                        <h2>{{product.name}}</h2>
+                        <h5>{{product.price}}Rs</h5>
+                        <p class="available-stock">{% if product.stock > 0 %}<span> {{product.stock}} items available</span>{% endif %}<p>
+						<h4>Short Description:</h4>
+						<p style="text-align:justify;">{{product.description}} </p>
+
+
+						<div class="price-box-bar">
+							<div class="cart-and-bay-btn">
+                                {% if user.is_authenticated %}
+                                    {% if user.is_superuser == True %}
+                                        <a class="btn hvr-hover" data-fancybox-close="" href="">Add Stock</a>
+                                    {% else %}
+                                        {% if product.stock > 0 %}
+                                            <a class="btn hvr-hover" data-fancybox-close="" href="{% url 'cart:addtocart' product.id %}">Add to cart</a>
+							            {% else %}
+                                            <h2>Out Of Stock</h2>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+
+                            </div>
+						</div>
+
+<!--						<div class="add-to-btn">-->
+<!--							<div class="add-comp">-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fas fa-heart"></i> Add to wishlist</a>-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Add to Compare</a>-->
+<!--							</div>-->
+<!--							<div class="share-bar">-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a>-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>-->
+<!--								<a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>-->
+<!--							</div>-->
+<!--						</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

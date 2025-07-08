@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+   <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Signup</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Signup</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class="container w-50 border border-1 border-dark mt-5 mb-5 p-5">
+    <form method="POST">
+
+      {% csrf_token %}
+       {{form}}
+  <input type="submit">
+</form>
+</div>
+
+{% endblock %}
