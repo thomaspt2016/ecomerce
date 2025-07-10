@@ -95,22 +95,23 @@ class OrderFormView(View):
                     total+=i.quantity*i.product.price
 
                 if order_object.payment_method=="ONLINE":
+                    try:
+                        clinent = razorpay.Client(auth=("rzp_test_6q2Y2f2fYK3y1o", "k9k7lX1qj2f9W2o0J2o1Y4Y2"))
+                        #2.order creation
+                        response_payment=clinent.order.create(dict(amount=total*100,currency='INR'))
+                        #prints the response_payment
+                        print(response_payment)
 
-                    #Razorpay Payment Gateway Integration
-                    #1.creates client connection
-                    # client = razorpay.Client(auth=("rzp_test_sJgGk1sHeX3AWm", "ylWAgRlJ3cxLO4BG25C7YEAX"))
-                    clinent = razorpay.Client(auth=("rzp_test_6q2Y2f2fYK3y1o", "k9k7lX1qj2f9W2o0J2o1Y4Y2"))
-                    #2.order creation
-                    response_payment=clinent.order.create(dict(amount=total*100,currency='INR'))
-                    #prints the response_payment
-                    print(response_payment)
-
-                    order_id=response_payment['id']
-                    order_object.order_id=order_id
-                    order_object.is_ordered=False
-                    order_object.amount=total
-                    order_object.save()
-                    return render(request, 'payment.html', {'payment': response_payment, 'name': u.username})
+                        order_id=response_payment['id']
+                        order_object.order_id=order_id
+                        order_object.is_ordered=False
+                        order_object.amount=total
+                        order_object.save()
+                        return render(request, 'payment.html', {'payment': response_payment, 'name': u.username})
+                    except Exception as e:
+                        print(e)
+                        messages.error(request, "Currently items not available")
+                        return render(request, 'orderform.html', {'form': form_instance})
 
 
                 elif order_object.payment_method=="COD":
